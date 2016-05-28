@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row">
-      <h1>순위입니다 </h1>
+      <h1>인기 순위</h1>
       <% @posts.each_with_index do |p, index|%>
           <div class="col-md-4 col-sm-12">
               <div class="panel panel-default panel-static">
@@ -11,8 +11,10 @@
                       <!-- <img src="http://imgmr.com/wp-content/uploads/2016/02/pokemon-4-1200x0.jpg" style="width:100%;"></img> -->
                       
                     </div>
-                    <h2><%= p.title%></h2>
-                    <%= p.content %></br>
+                    <div class="panel-desc">
+                      <h2><%= p.title%></h2>
+                      <%= p.content %>  
+                    </div>
                     
                     <div class="post-status" style="text-align:right;">
                       <i class="fa fa-heart-o" aria-hidden="true" style="color:#666;"></i>

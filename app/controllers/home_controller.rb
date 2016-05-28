@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+  before_action :require_login, except: [:index, :rank, :detail]
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -59,11 +60,11 @@ class HomeController < ApplicationController
     
     respond_to do |format|
       if reply.save
-        format.json {render json: {message: "댓글 작성 성공" }}
+        format.json {render json: {message: "success" }}
         #format.json {render nothing: true, status: 200 }
       else
       
-        format.json {render json: {message: "오류가 있습니다"}}
+        format.json {render json: {message: "error"}}
       end
 
 
@@ -74,33 +75,34 @@ class HomeController < ApplicationController
     
     #이미 좋아요를 했는지 체크
     result = Like.where(user_id: current_user).where(post_id: params[:post_id])
-
-
-    like = Like.new
-    like.user = current_user
-    like.post_id = params[:post_id]
+    unless Like.exists?(result)
     
-    respond_to do |format|
-      
-      
-      if like.save
 
-        post = Post.find(params[:post_id])
-        post.like_count = post.like_count+1
-        post.save
-
-        format.json {render json: {message: "좋아요 완료" }}
-        #format.json {render nothing: true, status: 200 }
-      else
+      like = Like.new
+      like.user = current_user
+      like.post_id = params[:post_id]
       
-        format.json {render json: {message: "이미 좋아요를 했습니다"} }
+      respond_to do |format|
+        
+        
+        if like.save
+
+          post = Post.find(params[:post_id])
+          post.like_count = post.like_count+1
+          post.save
+
+          format.json {render json: {message: "좋아요 완료" }}
+          #format.json {render nothing: true, status: 200 }
+        else
+        
+          format.json {render json: {message: "이미 좋아요를 했습니다"} }
+        end
+
+
       end
-
-
+      #!respond
     end
-    #
-
 
   end
-	
+	#!add_like
 end

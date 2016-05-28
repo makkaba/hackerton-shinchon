@@ -132,20 +132,28 @@
 
 
 	function like_success(response){
-		$("#like_btn").find("i").removeClass("heart-inactive").addClass("heart-active");
+		if(response.message == 'success'){
+			$("#like_btn").find("i").removeClass("heart-inactive").addClass("heart-active");	
+		}else {
+			alert("로그인이 필요합니다");
+		}
+		
 	}
 	function reply_success(response){
-		console.log(response.message);
-		var timeStamp = $("<div></div>").addClass("recent-time").append("less than a minute");
-		var tr = $("<tr></tr>").append("<td></td>");
+		if(response.message == 'success'){
+			var timeStamp = $("<div></div>").addClass("recent-time").append("less than a minute");
+			var tr = $("<tr></tr>").append("<td></td>");
 
-		var writer = $("<h5></h5>").append($("#my_id").val());
-		tr.find('td').append(writer);
-		tr.find('td').append($("#reply_content").val());
-		tr.find('td').append(timeStamp);
-		//tr.append($("#reply_content"));
+			var writer = $("<h5></h5>").append($("#my_id").val());
+			tr.find('td').append(writer);
+			tr.find('td').append($("#reply_content").val());
+			tr.find('td').append(timeStamp);
+			//tr.append($("#reply_content"));
 
-		$('#reply_table tbody').prepend(tr);
+			$('#reply_table tbody').prepend(tr);
+		}else{
+			alert("로그인이 필요합니다");
+		}
 	}
 	function reply_complete(){
 		console.log("complete");

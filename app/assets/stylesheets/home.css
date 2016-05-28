@@ -18,6 +18,7 @@
 
 .navbar-brand{
 	color:black;
+	font-size: 25px;
 }
 
 .navbar-nav li a{
@@ -43,4 +44,7 @@ button.btn:focus, button.btn:active, button.btn:hover{
 }
 .panel-desc{
 	height: 150px;
+}
+.post-wrapper img{
+	width:100%;
 }
