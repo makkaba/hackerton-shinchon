@@ -1,61 +1,32 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">멋4</a>
-        </div>
-    
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">멋4소개</a></li>
-            <li><a href="#">랭킹보기</a></li>
-            
-          </ul>
-          <form class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Search">
-            </div>
-            <button type="submit" class="btn btn-default">검색</button>
-          </form>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">로그인</a></li>
-          </ul>
-        </div>
-            
-    </div>
 
-  </div>
-</nav>
 
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                  <div class="image-frame">
-                    <img src="http://imgmr.com/wp-content/uploads/2016/02/pokemon-4-1200x0.jpg" style="width:100%;"></img>
-                    
-                  </div>
-                  <h2>막까봐 작명소</h2>
-                  변수명을 추천해주는 초간단 사이트</br>
-                  게시자:정기완</br>
+      <% @posts.each do |p|%>
+          <div class="col-md-4">
+              <div class="panel panel-default">
+                  <div class="panel-body">
+                    <div class="image-frame">
+                      <%= image_tag p.img_url%>
+                      <!-- <img src="http://imgmr.com/wp-content/uploads/2016/02/pokemon-4-1200x0.jpg" style="width:100%;"></img> -->
+                      
+                    </div>
+                    <h2><%= p.title%></h2>
+                    <%= p.content %></br>
+                    게시자:<%= p.user.email %></br>
 
-                  좋아요:80 댓글:20
-                  <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                  <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                  <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                  <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                  </br>
-                  <a href="/detail" class="btn btn-primary">자세히</a>
-                </div>
+                    좋아요:80 댓글:20
+                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
+                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
+                    </br>
+                    <a href="/detail/<%= p.id %>" class="btn btn-primary">자세히</a>
+                    <a href="<%= p.server_url %>" class="btn btn-danger" target="_blank">새창</a>
+                  </div>
+            </div>
           </div>
-        </div>
+        <% end %>
     </div>
 </div>

@@ -1,2 +1,74 @@
-<h1>Home#detail</h1>
-<p>Find me in app/views/home/detail.html.erb</p>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+
+			<div class="well post-wrapper">
+				<%= image_tag @post.img_url %>
+				<h1><%= @post.title %></h1>
+				<div class="description">
+					<%= @post.content %>
+				</div>	
+
+
+			</div>
+			<div class="well input-reply-wrapper">
+				<form action="/write_reply" method="post" style="margin-bottom:20px;">
+					<input type="hidden" name="post_id" value="<%= @post.id %>">
+					<div class="form-group" style="margin-bottom:0px !important;">
+						<textarea class="form-control" rows="3" name="reply_content"></textarea>
+					    
+					</div>
+					<div class="center-wrapper" style="text-align:right;">
+						<button type="submit" class="btn btn-default">입력</button>	
+					</div>
+					
+				</form>
+				<table class="table">
+					<% if @post.replies %>
+						<% @post.replies.each do |r| %>
+							<tr>
+
+								<td>
+									<div class="reply-wrapper">
+										<h5><%= r.user.email %></h5>
+										<%= r.content %>
+									</div>
+								</td>
+								
+							</tr>
+
+						<% end %>
+					<% end %>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="well recent-reply">
+				<h1>최근 댓글</h1>
+				<table class="table">
+					
+					<% @recent_reply.each do |recent| %>
+						<tr>
+							<td>
+								<div class="recent-reply-wrapper">
+									<h5><%= recent.user.email %></h5>
+									<div class="recent-content">
+										<%= recent.content %>
+									</div>
+									<div class="recent-time pull-right">
+										<%= time_ago_in_words(recent.created_at)+" ago" %>
+									</div>	
+									
+								</div>
+							</td>
+						</tr>
+
+					<% end %>
+				
+				</table>
+
+			</div>
+		</div>
+		
+	</div>
+</div>

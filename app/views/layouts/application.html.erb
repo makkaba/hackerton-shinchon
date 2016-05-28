@@ -19,13 +19,13 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">멋4</a>
+          <a class="navbar-brand" href="/"><i class="fa fa-home" aria-hidden="true"></i></a>
         </div>
     
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">멋4소개</a></li>
-            <li><a href="#">랭킹보기</a></li>
+            <li><a href="/description">멋4?</a></li>
+            <li><a href="#">순위</a></li>
             
           </ul>
           <form class="navbar-form navbar-left" role="search">
@@ -35,7 +35,12 @@
             <button type="submit" class="btn btn-default">검색</button>
           </form>
           <ul class="nav navbar-nav navbar-right">
+            <li><a href="/write">추가<i class="fa fa-plus-square" aria-hidden="true"></i></a></li>
+            <% unless user_signed_in? %>
             <li><a href="/users/sign_in">로그인</a></li>
+            <% else %>
+            <li><a href="/users/sign_out">로그아웃</a></li>
+            <% end %>
           </ul>
         </div>
             

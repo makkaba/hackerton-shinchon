@@ -1,13 +1,31 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<form action="/upload" method="post" enctype="multipart/formdata">
+			<form action="/upload" method="post" enctype="multipart/form-data">
 				<div class="form-group">
-					<label for="picture">사진</label>
-				    <input type="file" id="picture">
-				    <p class="help-block">사진을 추가해주세요</p>
+				  <label for="post_url">서비스 주소</label>
+				  <input type="text" class="form-control" id="post_url" name="post_url" placeholder="http://example.com">
+				</div>
+				<div class="form-group">
+				  <label for="post_title">서비스 이름</label>
+				  <input type="text" class="form-control" id="post_title" name="post_title" placeholder="서비스의 이름을 적어주세요">
 				</div>
 
+
+				<div class="form-group">
+					<label for="post_content">설명</label>
+					<textarea class="form-control" id ="post_content" name="post_content" rows="3" placeholder="간략한 설명을 써주세요"></textarea>	
+				</div>
+				<div id="preview">
+					<!-- 사진 미리보기 -->
+				</div>
+				<div class="form-group">
+					<label for="post_picture">사진</label>
+				    <input type="file" id="post_picture" name="post_picture" onchange="handleFiles(this.files)">
+
+				</div>
+				
+				<button type="submit" class="btn btn-default">등록</button>
 
 			</form>
 
@@ -18,3 +36,24 @@
 		</div>
 	</div>
 </div>
+<script>
+	window.URL = window.URL || window.webkitURL;
+	function handleFiles(file){
+		var preview = document.getElementById("preview")
+		if (!file.length) {
+		    
+		} else {
+		      
+		      var img = document.createElement("img");
+		      img.src = window.URL.createObjectURL(file[0]);
+		      img.width = 100;
+		      //img.height = 100;
+		      img.onload = function() {
+		        window.URL.revokeObjectURL(this.src);
+		      }
+		      preview.appendChild(img);
+		      
+		}
+		
+	}
+</script>
