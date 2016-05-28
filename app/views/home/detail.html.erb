@@ -1,44 +1,59 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-
+			<% if user_signed_in? %>
+			<input type="hidden" id="my_id" value="<%= current_user.email %>">
+			<% end %>
 			<div class="well post-wrapper">
 				<%= image_tag @post.img_url %>
 				<h1><%= @post.title %></h1>
 				<div class="description">
 					<%= @post.content %>
-				</div>	
+				</div>
+				<input type="hidden" id="post_id" value="<%= @post.id %>">
+				<button class="btn" id="like_btn" style="background-color:transparent; border:1px solid #c8c8c8;">
+					좋아요
+					<i class="fa fa-heart 
+					<% if @like.count == 0 %>
+					heart-inactive
+					<% else %>
+					heart-active
+					<% end %>" aria-hidden="true"></i>
+				</button>
+				
+					
 
 
 			</div>
 			<div class="well input-reply-wrapper">
-				<form action="/write_reply" method="post" style="margin-bottom:20px;">
+				<div style="margin-bottom:20px;">
 					<input type="hidden" name="post_id" value="<%= @post.id %>">
 					<div class="form-group" style="margin-bottom:0px !important;">
-						<textarea class="form-control" rows="3" name="reply_content"></textarea>
+						<textarea class="form-control" id="reply_content" rows="3" name="reply_content"></textarea>
 					    
 					</div>
 					<div class="center-wrapper" style="text-align:right;">
-						<button type="submit" class="btn btn-default">입력</button>	
+						<button type="button" class="btn btn-default" id="reply_btn">입력</button>	
 					</div>
 					
-				</form>
-				<table class="table">
-					<% if @post.replies %>
-						<% @post.replies.each do |r| %>
-							<tr>
-
-								<td>
-									<div class="reply-wrapper">
+				</div>
+				<table id="reply_table" class="table">
+					<tbody>
+						<% if @post.replies %>
+							<% @post.replies.order(created_at: :desc).each do |r| %>
+								<tr>
+									<td>
 										<h5><%= r.user.email %></h5>
 										<%= r.content %>
-									</div>
-								</td>
-								
-							</tr>
+										<div class="recent-time">
+											<%= time_ago_in_words(r.created_at)+" ago" %>	
+										</div>
+									</td>
+								</tr>
 
+							<% end %>
 						<% end %>
-					<% end %>
+					</tbody>
 				</table>
 			</div>
 		</div>
@@ -55,7 +70,7 @@
 									<div class="recent-content">
 										<%= recent.content %>
 									</div>
-									<div class="recent-time pull-right">
+									<div class="recent-time">
 										<%= time_ago_in_words(recent.created_at)+" ago" %>
 									</div>	
 									
@@ -72,3 +87,68 @@
 		
 	</div>
 </div>
+<div class="hidden" id="reply-prototype">
+	<tr>
+		<td>
+			<div class="reply-wrapper">
+				<h5></h5>
+				
+				<div class="recent-time"></div>
+			</div>
+		</td>
+	</tr>
+</div>
+<script>
+	$(document).ready(function(){
+		$('#like_btn').on('click', function(){
+        
+	        var clickedbutton = this;
+	        $.ajax('/add_like',{
+	            type:'post',
+	            context: clickedbutton,
+	            data: {'post_id': $("#post_id").val()},
+	            success: like_success
+	        });
+	    });
+
+		$('#reply_btn').on('click', function(){
+
+			var clickedbutton = this;
+			$.ajax('/add_reply',{
+	            type:'post',
+	            context: clickedbutton,
+	            data: {
+	            	post_id: $("#post_id").val(),
+	            	reply_content: $("#reply_content").val()
+	        	},
+	            success: reply_success,
+	            complete: reply_complete
+	        });
+		});
+
+
+
+	});
+
+
+	function like_success(response){
+		$("#like_btn").find("i").removeClass("heart-inactive").addClass("heart-active");
+	}
+	function reply_success(response){
+		console.log(response.message);
+		var timeStamp = $("<div></div>").addClass("recent-time").append("less than a minute");
+		var tr = $("<tr></tr>").append("<td></td>");
+
+		var writer = $("<h5></h5>").append($("#my_id").val());
+		tr.find('td').append(writer);
+		tr.find('td').append($("#reply_content").val());
+		tr.find('td').append(timeStamp);
+		//tr.append($("#reply_content"));
+
+		$('#reply_table tbody').prepend(tr);
+	}
+	function reply_complete(){
+		console.log("complete");
+		$('#reply_content').val('');
+	}
+</script>

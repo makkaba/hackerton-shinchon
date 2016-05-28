@@ -1,0 +1,46 @@
+.post-image{
+	height: 220px;
+	overflow: hidden;
+}
+.post-image img{
+
+	width:100%;
+	
+}
+
+.panel-static{
+	height: 500px;
+}
+
+.navbar-custom{
+	background-color: 
+}
+
+.navbar-brand{
+	color:black;
+}
+
+.navbar-nav li a{
+	color:black;
+}
+
+.heart-active{
+	color: #ff0039;
+}
+.heart-inactive{
+	color:#c8c8c8;
+}
+
+.recent-time{
+	text-align: right;
+}
+
+button.btn:focus, button.btn:active, button.btn:hover{
+	color:black;
+};
+.panel-body{
+	position: relative;
+}
+.panel-desc{
+	height: 150px;
+}

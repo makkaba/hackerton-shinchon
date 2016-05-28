@@ -4,26 +4,32 @@
 <div class="container">
     <div class="row">
       <% @posts.each do |p|%>
-          <div class="col-md-4">
-              <div class="panel panel-default">
+          <div class="col-md-4 col-sm-12">
+              <div class="panel panel-default panel-static">
                   <div class="panel-body">
-                    <div class="image-frame">
+                    <div class="post-image">
                       <%= image_tag p.img_url%>
                       <!-- <img src="http://imgmr.com/wp-content/uploads/2016/02/pokemon-4-1200x0.jpg" style="width:100%;"></img> -->
                       
                     </div>
-                    <h2><%= p.title%></h2>
-                    <%= p.content %></br>
-                    게시자:<%= p.user.email %></br>
+                    <div class="panel-desc">
+                      <h2><%= p.title%></h2>
+                      <%= p.content %>  
 
-                    좋아요:80 댓글:20
-                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                    <i class="fa fa-star" aria-hidden="true" style="color:yellow;"></i>
-                    </br>
-                    <a href="/detail/<%= p.id %>" class="btn btn-primary">자세히</a>
-                    <a href="<%= p.server_url %>" class="btn btn-danger" target="_blank">새창</a>
+                    </div>
+                    
+                    <div class="post-footer">
+                      <div class="post-status" style="text-align:right;">
+                        <i class="fa fa-heart-o" aria-hidden="true" style="color:#666;"></i>
+                        <%= p.likes.count %>
+                        <i class="fa fa-comment-o" aria-hidden="true" style="color:#666;"></i>
+                        <%= p.replies.count %>
+                      </div>
+                      <a href="/detail/<%= p.id %>" class="btn btn-default">자세히</a>
+                      <!-- <a href="<%= p.server_url %>" class="btn btn-default" target="_blank">바로보기</a> -->
+                      <!-- <a href="#" class="btn btn-default">메세지</a> -->
+                    </div>
+                      
                   </div>
             </div>
           </div>

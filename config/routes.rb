@@ -7,10 +7,12 @@ Rails.application.routes.draw do
   get 'home/contact'
   get '/detail/:id' => 'home#detail'
   get '/write' => 'home#uppost_view'
+  get '/rank' => 'home#rank'
 
   post '/upload' => 'home#upload'  
   post '/write_reply' => 'home#write_reply'
-
+  post '/add_like' => 'home#add_like'
+  post '/add_reply' => 'home#add_reply'
 
 
   # The priority is based upon order of creation: first created -> highest priority.

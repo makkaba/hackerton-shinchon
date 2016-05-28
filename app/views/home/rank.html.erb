@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+      <h1>순위입니다 </h1>
+      <% @posts.each_with_index do |p, index|%>
+          <div class="col-md-4 col-sm-12">
+              <div class="panel panel-default panel-static">
+                  <h3><%= index+1 %>위</h3>
+                  <div class="panel-body">
+                    <div class="post-image">
+                      <%= image_tag p.img_url%>
+                      <!-- <img src="http://imgmr.com/wp-content/uploads/2016/02/pokemon-4-1200x0.jpg" style="width:100%;"></img> -->
+                      
+                    </div>
+                    <h2><%= p.title%></h2>
+                    <%= p.content %></br>
+                    
+                    <div class="post-status" style="text-align:right;">
+                      <i class="fa fa-heart-o" aria-hidden="true" style="color:#666;"></i>
+                      <%= p.likes.count %>
+                      <i class="fa fa-comment-o" aria-hidden="true" style="color:#666;"></i>
+                      <%= p.replies.count %>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        <% end %>
+    </div>
+</div>
