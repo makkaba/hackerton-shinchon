@@ -17,4 +17,8 @@ class HomeController < ApplicationController
 		uploader.store!(file)
 		redirect_to :back
 	end
+
+	def rank
+	end
+	
 end
