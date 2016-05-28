@@ -16,4 +16,6 @@
 !/log/.keep
 /tmp
 
-config/initializer/aws.rb
+config/initializers/aws.rb
+config/database.yml
+

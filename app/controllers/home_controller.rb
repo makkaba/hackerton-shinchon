@@ -10,4 +10,11 @@ class HomeController < ApplicationController
 
   def contact
   end
+  
+  def upload
+		file = params[:picture]
+		uploader = SomeUploader.new
+		uploader.store!(file)
+		redirect_to :back
+	end
 end
